@@ -1,0 +1,306 @@
+import sys
+import  requests
+import json
+import smtplib
+
+category_mens = {
+    1:'shirts',
+    2:'jackets',
+    3:'shoes',
+    4:'slippers',
+    5:'jeans',
+    6:'perfumes',
+    7:'wallets',
+    8:'belts',
+    9:'glasses',
+
+
+}
+men_jackets={'adidas':[1500,4000],'killer':[800,1500],'puma':[1500,2499],'u.s polo Assin':[2000,4000],'H&M men':[600,1300],'Wrogn men':[1000,3000],'Ree bok men':[1000,2500],'Roadster':[1470,2000],'Nike':[1500,4500],'Spark':[500,4000]}
+men_shirts={'u.s polo Assin':[699,1299],'roadster':[300,1200],'rare rabbit':[1000,1900],'roadster':[300,1200],'wrogn':[700,1700],'darkmode':[480,1000],'indhi hemp':[500,10000],'cobiomen':[250,499],'carmelo khadi':[500,1499],'arrow':[500,1499],'design up':[250,499]}
+men_shoes={'nike':[1500,3000],'puma':[499,4000],'addi':[499,4000],'adidas':[499,4000],'adda':[300,999],'bata':[200,999],'asian':[300,1999],'u.s polo assn':[500,4000]}
+men_slippers={'nike':[499,3999],'crocs':[3000,3999],'Bata':[499,1999],'Puma':[500,2999],'U.S polo Assin':[499,2999],'Spark':[499,999]}
+men_jeans={'allen solly':[750,2500],'flyingmachine':[500,2500],'killer':[750,2500],'lee':[500,750],'lee Cooper':[750,2000],'louis pilippe':[1000,2500]}
+men_perfumes={'fogg':[101,2000],'setwet':[101,1000],'denver':[101,1000],'wild Stone':[101,2000],'Skin by titan':[401,4001],'calvinklein':[3001,4000],'Usiraa':[501,2000],'The Perfume Stone':[100,4001],'Parag fragrance':[301,1500],'Ramsons':[101,3000]}
+men_wallets={'fastrack':[500,2999],'aldo':[750,2999],'allen solly':[500,1249],'arrow':[750,2999],'gear':[499,749],'puma':[300,2000],'killer':[299,1499],'Titan':[500,2000],'Peter England':[300,1999]}
+men_belt={'fastrack':[300,1000],'Killer':[300,1000],'Titan':[700,1000],'U.S Polo assn':[500,1000],'Peter England':[300,1000],'Louisphilippe':[500,1000],'puma':[1000]}
+men_glasses={'gensta':[194],'Optify':[499],'anemone':[454]}
+men_watches={'Fastrack':[501,10000],'Titan':[501,10001],'Fossil':[3001,10001],'Allen Solly':[501,5000],'Maxima':[200,3000],'Sonata':[500,5000],'Timex':[500,10001],'Emporio armani':[500,10001]}
+women_watches={'Fastrack':[501,10000],'Titan':[501,10001],'Fossil':[3001,10001],'Allen Solly':[501,5000],'Maxima':[200,3000],'Sonata':[500,5000],'Timex':[500,10001],'Emporio armani':[500,10001]}
+Bags={'Nike':[500,2999],'Skybags':[500,2999],'Safari':[500,2999],'fastrack':[750,2999],'Puma':[500,2999]}
+womens_hoodies={'CAMPUS SUTRA':999,'METRONAUT':2499,'PUMA':2500,'DIVRA CLOTHING':2000,'NYULL':999,'FLEXIMAA':1499,'BROADSTAR':1999,'NARSINGHA DREAMS':889,'GOODTRY':999,'QOSHA':1499}
+womens_flatsandals={'ALLEN SOLLY':1500,'BATA':999,'BRAUCH':1299,'CATWALK':999,'DENILL':499,'DRESS BERRY':399,'KHADIMS':899}
+womens_shirt={' ROADSTER':2500,'ALLEN SOLLY':2000,'ADIDAS':2000,'BEWAKOOF':2499,'CHEROKEE':999,'DRESSBERRY':999,'ONLY':599,'PEOPLE':2499,'SASSAFRAS':1999}
+womens_jeans={'KILLER':1999,'HERE&NOW':1499,'HERWAY':1499,'FLYING MACHINE':1999,'KOTTY':1499,'LEVIS':2499,'MAST & HARBOUR':1499,'METRONAULT':999}
+womens_jeggings={'AND':1499,'CHEROKEE':900,'JOCKEY':1999,'DRESSBERRY':999,'KOTTY':999,'LYRA':1999,'MAX':999,'NUMERO UNO':1999}
+womens_chudidars={'ANAND':999,'DIVASTRI':1999,'ETHNIC JUNCTION':999,'JEVI PRINTS':1499,'SARAA':1999,'GIFTNFRIENDS':999,'KASHVI':999}
+womens_sarees={'3SIX5':1499,'ANAND':1999,'ASHVMEGH':1999,'KASHVI SAREES':1499,'LEELAVATI':999,'FABWOMEN':1499,'PISARA':2499}
+womens_shoes={'BATA':1000,'HOOH':699,'LNG LIFE STYLE':999,'MISS&CHIEF':1500,'SANAYA':1299,'WORLS WEAR FOOTWEAR':1500,'PARAGON':1450,'PUMA':999}
+makeup_kits={'WET N WILD':1500,'COLOR GIRL':800,'F-ZONE':3000,'WIFFY':4000,'OUR BEAUTY':1500,'AMLY':1000,'VEDY':4001,'VOLO':2000,'ROSEDALE':700}
+womens_tshirts={'ADIDAS':2500,'AP PULSE':2500,'BEWAKOOF':1499,'CHRISTY WORLD':1999,'CLOVIA':1999,'DRESSBERRY':999,'FLEXIMA':1499,'FLYING MACHINE':1499,'HRX BY HRITHIK ROSHAN':1999}
+womens_dupattas={'1HMSA':499,'24 OUTLINE FASHION HUT':1499,'3SIX5':499,'9SEVEN':499,'9RASA':999,'A F FAISHAN':499,'A G CREATION':499,'A P SUPER STORE':499,'A R SILK':2500,' AS SILK':999}
+
+women = {
+    1:'shirts',
+    2:'jeans',
+    3:'jeggins',
+    4:'chudidars',
+    5:'sarees',
+    6:'shoes',
+    7:'Makeupkits',
+    8:'Watches',
+
+
+
+}
+
+print("WELCOME TO ONLINE SELLERS :")
+gender = input("Enter your gender male or female :")
+if gender == "male":
+    print("Select the category from the below list : ")
+    for x in category_mens.items():
+        print(x)
+    sel =  input("Enter the category name: ")
+    if sel == "shirts":
+        for s in men_shirts.items():
+            print(s)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS , JEANS , ETC  : ")
+        cart1 = input("Enter the brand name ")
+
+    #print shirts brand names and prices
+    elif sel == "jackets":
+        for t in men_jackets.items():
+            print(t)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart1 = input("Enter the brand name ")
+
+
+    #print jackets names and prices
+    elif sel == "shoes":
+        for o in men_shoes.items():
+            print(o)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart1 = input("Enter the brand name ")
+
+
+    #print shoes  names and
+    elif sel == "slippers":
+        for w in men_slippers.items():
+            print(w)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart1 = input("Enter the brand name ")
+
+
+    elif sel == "jeans":
+        for v in men_jeans.items():
+            print(v)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart1 = input("Enter the brand name ")
+
+
+    elif sel == "perfumes":
+        for f in men_perfumes.items():
+            print(f)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart1 = input("Enter the brand name ")
+
+
+    elif sel == "wallets":
+        for u in men_wallets.items():
+            print(u)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart1 = input("Enter the brand name ")
+
+
+    elif sel == "belts":
+        for h in men_belt.items():
+            print(h)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart1 = input("Enter the brand name ")
+
+
+    elif sel == "glasses":
+        for j in men_glasses.items():
+            print(j)
+        cart = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart1 = input("Enter the brand name ")
+
+    elif sel == "bags":
+        for e in Bags.items():
+            print(e)
+
+
+            #male done
+        #print done
+elif  gender == "female":
+    print("Select which category you want ? ")
+    for y in women.items():
+         print(y)
+    sel3 = input("select a item from the list : ")
+    if sel3 == "shirts":
+        for dq in womens_shirt.items():
+            print(dq)
+        cart5 = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart2 = input("Enter the brand name ")
+    elif sel3 == "jeans":
+        for rt in womens_jeans.items():
+            print(rt)
+        cart5 = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart2 = input("Enter the brand name ")
+    elif sel3 == "jeggins":
+        for yt in womens_jeggings.items():
+            print(yt)
+        cart5 = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart2 = input("Enter the brand name ")
+    elif sel3 == "chudidars":
+        for hj in womens_chudidars.items():
+            print(hj)
+        cart5 = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart2 = input("Enter the brand name ")
+    elif sel3 == "sarees":
+        for nm in womens_sarees.items():
+            print(nm)
+        cart5 = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart2 = input("Enter the brand name ")
+    elif sel3 == "shoes":
+        for kl in womens_shoes.items():
+            print(kl)
+        cart5 = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart2 = input("Enter the brand name ")
+
+    elif sel3 == "Makekits":
+        for xc in makeup_kits.items():
+            print(xc)
+        cart5 = input("ENTER THE CATEGORY NAME LIKE SHIRTS : ")
+        cart2 = input("Enter the brand name ")
+
+elif cart == "shoes":
+    print("You selected from shoes ")
+    print('Price range of the selected brand', men_shoes[cart1])
+elif cart == "wallets"  :
+    print("You selected from wallets  ")
+    print('Price range of selected brand ', men_wallets[cart1])
+elif cart == "glasses":
+    print("You selected from glasses ")
+    print('Price range of selected brand ', men_glasses[cart1])
+elif cart == "watches":
+    print("You selected from watches ")
+    print('Price range of selected brand ', men_watches[cart1])
+elif cart == "shirts":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', men_shirts[cart1])
+elif cart == "jeans":
+    print("You selected from jeans ")
+    print('Price range of selected brand ', men_jeans[cart1])
+elif cart == "slippers":
+    print("You selected from slippers ")
+    print('Price range of selected brand ', men_slippers[cart1])
+elif cart == "jackets":
+    print("You selected from jackets ")
+    print('Price range of selected brand ', men_jackets[cart1])
+elif cart == "bags":
+    print("You selected from bags ")
+    print('Price range of selected brand ', Bags[cart1])
+elif cart == "perfumes":
+    print("You selected from perfume ")
+    print('Price range of selected brand ', men_perfumes[cart1])
+  #for women llist
+elif cartw == "watches":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', women_watches[cart2])
+elif cartw == "shirt":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', womens_shirt[cart2])
+elif cartw == "jeggins":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', womens_jeggings[cart2])
+elif cartw == "jeans":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', womens_jeans[cart2])
+elif cartw == "chudidars":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', womens_chudidars[cart2])
+elif cartw == "sarees":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', womens_sarees[cart2])
+elif cartw == "shoes":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', womens_shoes[cart2])
+elif cartw == "makeupkit":
+    print("You selected from shirts ")
+    print('Price range of selected brand ', makeup_kits[cart2])
+else :
+    print("no items found")
+    sys.exit()
+
+print("ONLY CASH ON DELIVERY AVAILABLE ")
+print("Now lets start taking location ")
+print("Your locator may not work properly so for now we prefer manual entry of your address")
+loc = input("Need permision to get location if ok type yes or type no  ")
+if loc == "yes":
+
+    ENDPOINT = "https://api.postalpincode.in/pincode/"
+
+    pincode = input("enter your pincode : ")
+
+    response = requests.get(ENDPOINT + pincode)
+
+    pincode_information = json.loads(response.text)
+
+    necessary_information = pincode_information[0]['PostOffice'][0]
+
+    for key, value in necessary_information.items():
+        print(f"{key} : {value}")
+elif loc == "no":
+    print("Enter your address Below :")
+    customer_name = input(" Name :")
+    phone_no = int(input("phone number :"))
+    door_no = input(" door number ")
+    address = input(" address : ")
+    land_mark = input("Landmark :  ")
+    street = input("Street name :")
+    alt_phone_no = input("Alternate phone number: ")
+else:
+    print("An unexcepted error occured ")
+
+
+print("Due to some reasons we are now only avaible with CASH ON DELIVERY")
+confirm = input("Do you want to confrim your order : ")
+if confirm == "yes":
+    mail = input("then enter your mail ")
+    sender_email = "onlineseller277@gmail.com"
+    rec_email = mail
+    password = "team#277"
+    message = "onlineSeller your order of  will be delivered by 4 to 6 days"
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(sender_email, password)
+    print("Login sucess")
+    server.sendmail(sender_email, rec_email, message)
+    print("mail sent to receicers mail")
+
+
+elif confirm == "no":
+    print("Ok we will be there any time ")
+else :
+    print("Error occured ")
+    sys.exit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
